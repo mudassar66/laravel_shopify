@@ -188,7 +188,7 @@ class Client
     private function shopApiCallLimitParam($index)
     {
         if ($this->last_response_headers == null) {
-            throw new Exception('Cannot be called before an API call.');
+            throw new \Exception('Cannot be called before an API call.');
         }
         $params = explode('/', $this->last_response_headers['http_x_shopify_shop_api_call_limit']);
 
