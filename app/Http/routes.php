@@ -22,8 +22,8 @@ $app->get('/api', function (\Illuminate\Http\Request $request, \App\Services\sho
     switch ($action) {
         case 'createProduct':
             $row = DB::table('shops')
-                ->select(['id', 'shop_token', 'shop_domain'])
-                ->where('shop_secret', $request->get('token'))
+                ->select(['id', 'token', 'domain'])
+                ->where('secret', $request->get('token'))
                 ->first();
 
             if ($row) {
@@ -45,8 +45,8 @@ $app->get('/api', function (\Illuminate\Http\Request $request, \App\Services\sho
                     ]
                 ];
 
-                $client->shop_domain = $row->shop_domain;
-                $client->setToken($row->shop_token);
+                $client->shop_domain = $row->domain;
+                $client->setToken($row->token);
                 $productDetail = $client->call('POST', '/admin/products.json', $postArray);
 
                 echo $productDetail['variants'][0]['id'];

@@ -34,9 +34,9 @@ class Controller extends BaseController
             // there is no loaded shop, or loaded another shop
             // then try to find in the DB
             $row = DB::table('shops')
-                ->select(['id', 'shop_token', 'shop_name', 'shop_secret', 'shop_url'])
-                ->where('shop_url', $shop)
-                ->orWhere('shop_domain', $shop)
+                ->select(['id', 'token', 'name', 'secret', 'url'])
+                ->where('url', $shop)
+                ->orWhere('domain', $shop)
                 ->first();
 
             // no row found and we got code for API - save new shop
@@ -47,7 +47,7 @@ class Controller extends BaseController
                 $row = $this->saveShop($code, $activeThemeId, $activeThemeMobileId);
 
                 // put shopify snippet to the main theme
-                if ($this->addSnippet($activeThemeId, $row->shop_secret)) {
+                if ($this->addSnippet($activeThemeId, $row->secret)) {
                     $this->makeSnippetIncluded($activeThemeId);
                 }
             }
@@ -165,16 +165,16 @@ class Controller extends BaseController
         // save new shop
         $shopSecret = md5(uniqid(rand(), true));
         $attributes = [
-            'shop_owner' => $shop->shop_owner,
-            'shop_name' => $shop->name,
-            'shop_token' => $token,
-            'shop_url' => $shop->domain,
-            'shop_domain' => $shop->myshopify_domain,
-            'shop_country' => $shop->country_code,
-            'shop_email' => $shop->email,
-            'shop_plan' => $shop->plan_name,
-            'shop_currency' => $shop->currency,
-            'shop_secret' => $shopSecret,
+            'owner' => $shop->shop_owner,
+            'name' => $shop->name,
+            'token' => $token,
+            'url' => $shop->domain,
+            'domain' => $shop->myshopify_domain,
+            'country' => $shop->country_code,
+            'email' => $shop->email,
+            'plan' => $shop->plan_name,
+            'currency' => $shop->currency,
+            'secret' => $shopSecret,
             'province_code' => $shop->province_code,
             'city' => $shop->city,
             'address1' => $shop->address1,
@@ -197,10 +197,10 @@ class Controller extends BaseController
     protected function fillSession($key, $row)
     {
         return session([
-            'token' => $row->shop_token,
-            'shop_domain' => $row->shop_url,
-            'shop_name' => $row->shop_name,
-            'shop_secret' => $row->shop_secret,
+            'token' => $row->token,
+            'shop_domain' => $row->url,
+            'shop_name' => $row->name,
+            'shop_secret' => $row->secret,
             'shop_id' => $row->id,
             'loaded_shop' => $key,
         ]);

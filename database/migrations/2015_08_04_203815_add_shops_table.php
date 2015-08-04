@@ -12,6 +12,11 @@ class AddShopsTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('shops')) {
+            // skip migration for existed table
+            return;
+        }
+
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('id');
             $table->string('shop_owner');

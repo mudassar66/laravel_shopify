@@ -43,7 +43,7 @@
         <script type="text/javascript">
             ShopifyApp.init({
                 apiKey: '<?= env('SHOPIFY_KEY') ?>',
-                shopOrigin: 'https://<?= $_SESSION['shop_domain'] ?>',
+                shopOrigin: 'https://<?= $_SESSION['domain'] ?>',
                 debug: <?= App::environment('production') ? 'false' : 'true' ?>
             });
 
