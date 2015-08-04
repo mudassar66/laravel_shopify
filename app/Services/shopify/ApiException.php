@@ -9,6 +9,13 @@ class ShopifyApiException extends \Exception
     protected $response_headers;
     protected $response;
 
+    /**
+     * @param string $method
+     * @param int $path
+     * @param array $params
+     * @param $response_headers
+     * @param $response
+     */
     function __construct($method, $path, $params, $response_headers, $response)
     {
         $this->method = $method;
