@@ -12,7 +12,7 @@ class Controller extends BaseController
      */
     protected $client;
 
-    public function __construct(\app\Services\shopify\Client $client)
+    public function __construct(\App\Services\shopify\Client $client)
     {
         $this->client = $client;
     }

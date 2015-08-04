@@ -9,6 +9,12 @@ class Client
     private $secret;
     private $last_response_headers = null;
 
+    /**
+     * @param string $shop_domain
+     * @param string $token
+     * @param string $api_key
+     * @param string $secret
+     */
     public function __construct($shop_domain, $token, $api_key, $secret)
     {
         $this->name = 'ShopifyClient';
