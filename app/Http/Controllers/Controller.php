@@ -47,7 +47,7 @@ class Controller extends BaseController
                 $row = $this->saveShop($code, $activeThemeId, $activeThemeMobileId);
 
                 // put shopify snippet to the main theme
-                if ($this->addSnippet($activeThemeId)) {
+                if ($this->addSnippet($activeThemeId, $row->shop_secret)) {
                     $this->makeSnippetIncluded($activeThemeId);
                 }
             }
@@ -104,15 +104,16 @@ class Controller extends BaseController
     /**
      * Adds new snippet rendered from the view 'shopifySnippet'
      * @param $activeThemeId
+     * @param string $secret shop's secret
      * @return array|mixed
      * @throws \App\Services\shopify\ShopifyApiException
      */
-    protected function addSnippet($activeThemeId)
+    protected function addSnippet($activeThemeId, $secret)
     {
         $postArray = [
             'assets' => [
                 'key' => 'snippets/pwyw.liquid',
-                'value' => view('shopifySnippet')->render(),
+                'value' => view('shopifySnippet', ['secret' => $secret])->render(),
             ],
         ];
 
@@ -193,7 +194,7 @@ class Controller extends BaseController
      * @param \stdClass $row attributes of the saved shop
      * @return mixed
      */
-    private function fillSession($key, $row)
+    protected function fillSession($key, $row)
     {
         return session([
             'token' => $row->shop_token,

@@ -12,3 +12,6 @@
 */
 
 $app->get('/', 'Controller@welcome');
+$app->post('/', 'Controller@welcome');
+
+$app->get('/configuration', 'Controller@config');
