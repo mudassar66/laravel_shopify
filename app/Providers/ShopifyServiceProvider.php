@@ -17,8 +17,9 @@ class ShopifyServiceProvider extends ServiceProvider
             /** @var Request $request */
             $request = $app['request'];
             $shop = $request->input('shop');
+            $certPath = app()->resourcePath('/cert/cacert.pem');
 
-            return new Client($shop, null, env('SHOPIFY_KEY'), env('SHOPIFY_SECRET'));
+            return new Client($shop, null, env('SHOPIFY_KEY'), env('SHOPIFY_SECRET'), $certPath);
         });
     }
 }

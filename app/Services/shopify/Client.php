@@ -8,20 +8,23 @@ class Client
     private $api_key;
     private $secret;
     private $last_response_headers = null;
+    private $certFile;
 
     /**
      * @param string $shop_domain
      * @param string $token
      * @param string $api_key
      * @param string $secret
+     * @param $certFile
      */
-    public function __construct($shop_domain, $token, $api_key, $secret)
+    public function __construct($shop_domain, $token, $api_key, $secret, $certFile = null)
     {
         $this->name = 'ShopifyClient';
         $this->shop_domain = $shop_domain;
         $this->token = $token;
         $this->api_key = $api_key;
         $this->secret = $secret;
+        $this->certFile = $certFile;
     }
 
     public function setToken($token)
@@ -156,9 +159,13 @@ class Client
         curl_setopt($ch, CURLOPT_USERAGENT, 'ohShopify-php-api-client');
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_CAINFO, "cacert.pem");
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+        // ssl support
+        if ($this->certFile) {
+            curl_setopt($ch, CURLOPT_CAINFO, $this->certFile);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        }
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         if (!empty($request_headers)) {
