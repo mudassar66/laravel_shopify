@@ -16,8 +16,6 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
 
-    <script src="<?= url('/js/functions.js') ?>"></script>
-
     <!-- Load javascripts at bottom, this will reduce page load time -->
 
     <!-- BEGIN CORE PLUGINS(REQUIRED FOR ALL PAGES) -->
@@ -103,5 +101,6 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="<?= url('/js/functions.js') ?>"></script>
 </body>
 </html>
