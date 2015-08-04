@@ -248,19 +248,17 @@ class Controller extends BaseController
                 header("Location: " . $this->client->getAuthorizeUrl(SHOPIFY_SCOPE, $pageURL));
                 exit;
             }
-        } else {
-            if (isset($_POST['shop'])) {
-                $pageURL = 'https://';
+        } elseif (isset($_POST['shop'])) {
+            $pageURL = 'https://';
 
-                if ($_SERVER["SERVER_PORT"] != "80") {
-                    $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-                } else {
-                    $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-                }
-
-                header("Location: " . $this->client->getAuthorizeUrl(SHOPIFY_SCOPE, $pageURL));
-                exit;
+            if ($_SERVER["SERVER_PORT"] != "80") {
+                $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+            } else {
+                $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
             }
+
+            header("Location: " . $this->client->getAuthorizeUrl(SHOPIFY_SCOPE, $pageURL));
+            exit;
         }
 
         return view('welcome');
