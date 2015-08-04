@@ -33,7 +33,7 @@ class Controller extends BaseController
 
             // there is no loaded shop, or loaded another shop
             // then try to find in the DB
-            $row = \DB::table('shops')
+            $row = DB::table('shops')
                 ->select(['id', 'shop_token', 'shop_name', 'shop_secret', 'shop_url'])
                 ->where('shop_url', $shop)
                 ->orWhere('shop_domain', $shop)
@@ -182,7 +182,7 @@ class Controller extends BaseController
             'active_theme_mobile_id' => $mobileTheme,
             'join_datetime' => date('Y-m-d H:i:s'),
         ];
-        $id = \DB::table('shops')->insertGetId($attributes);
+        $id = DB::table('shops')->insertGetId($attributes);
         $attributes['id'] = $id;
 
         // simulate return like it's a found row from DB - stdclass
