@@ -1,8 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-Dotenv::load(__DIR__ . '/../');
+require_once __DIR__.'/../vendor/autoload.php';
+ Dotenv::load(__DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +15,10 @@ Dotenv::load(__DIR__ . '/../');
 */
 
 $app = new Laravel\Lumen\Application(
-    realpath(__DIR__ . '/../')
+	realpath(__DIR__.'/../')
 );
 
-// to be able to use FB:: facade
-$app->withFacades();
+// $app->withFacades();
 
 // $app->withEloquent();
 
@@ -56,13 +54,13 @@ $app->singleton(
 |
 */
 
- $app->middleware([
-      Illuminate\Cookie\Middleware\EncryptCookies::class,
-      Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-      Illuminate\Session\Middleware\StartSession::class,
-      Illuminate\View\Middleware\ShareErrorsFromSession::class,
-//      Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
- ]);
+// $app->middleware([
+//     // Illuminate\Cookie\Middleware\EncryptCookies::class,
+//     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//     // Illuminate\Session\Middleware\StartSession::class,
+//     // Illuminate\View\Middleware\ShareErrorsFromSession::class,
+//     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
+// ]);
 
 // $app->routeMiddleware([
 
@@ -95,7 +93,7 @@ $app->register(\App\Providers\ShopifyServiceProvider::class);
 */
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__ . '/../app/Http/routes.php';
+	require __DIR__.'/../app/Http/routes.php';
 });
 
 return $app;

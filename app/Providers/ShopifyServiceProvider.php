@@ -16,10 +16,10 @@ class ShopifyServiceProvider extends ServiceProvider
         $this->app->singleton([Client::class, 'shopify'], function ($app) {
             /** @var Request $request */
             $request = $app['request'];
-            $shop = $request->input('shop');
-            $certPath = app()->resourcePath('/cert/cacert.pem');
+            $shop = env('SHOPIFY_SHOP');
+          //  $certPath = app()->resourcePath('/cert/cacert.pem');
 
-            return new Client($shop, null, env('SHOPIFY_KEY'), env('SHOPIFY_SECRET'), $certPath);
+            return new Client($shop, null, env('SHOPIFY_API_KEY'), env('SHOPIFY_PASSWORD'));
         });
     }
 }
